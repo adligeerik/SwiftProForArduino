@@ -286,7 +286,8 @@ void bt_test()
 		bt_tick_count++;
 		if (bt_tick_count >= 2)
 		{
-			bt_tick_count = 0;
+			bt_tick_count = 0;
+
 
 			// check result
 			i = 0;
@@ -324,7 +325,8 @@ void bt_test()
 		bt_tick_count++;
 		if (bt_tick_count >= 10)
 		{
-			bt_tick_count = 0;	
+			bt_tick_count = 0;
+	
 			clearMacFlag();
 			Serial1.write("AT");	// disconnect bt
 			bt_test_state = BT_TEST_GET_MAC;
@@ -336,7 +338,8 @@ void bt_test()
 		bt_tick_count++;
 		if (bt_tick_count >= 10)
 		{
-			bt_tick_count = 0;	
+			bt_tick_count = 0;
+	
 			getMacAddr();
 			bt_test_state = BT_TEST_DONE;
 			test_result |= (1 << TEST_ITEM_BT);
@@ -347,7 +350,8 @@ void bt_test()
 		bt_tick_count++;
 		if (bt_tick_count >= 20)
 		{
-			bt_tick_count = 0;	
+			bt_tick_count = 0;
+	
 			bt_test_state = BT_TEST_INIT;
 		}
 		break;
@@ -778,7 +782,8 @@ struct point_data
 
 
 class PointDataFilter
-{
+{
+
 private:
 	struct point_data points_data[POINT_DATA_MAX];
 	int point_count = 0; 
@@ -950,7 +955,8 @@ public:
 	}
 
 	void setNext(PlayData data)
-	{
+	{
+
 		indexInc();
 
 		_data[next_2].x = data.x;
@@ -1007,7 +1013,8 @@ public:
 
 		if (dir[1] != 0 && dir[0] != 0 && dir[2] != 0 && dir[1] != dir[0] && dir[1] != dir[2])
 		{
-			service_debug("!!!!!!!!!!!!!!!Invalid data!\r\n");
+			service_debug("Invalid data!\r\n");
+
 			return false;
 		}
 
@@ -1123,7 +1130,8 @@ public:
 	}
 
 	bool isCurDataDelay()
-	{
+	{
+
 		if (abs(_data[cur].x - _data[pre].x) > 0.1)
 			return false;
 
@@ -1188,7 +1196,8 @@ bool uArmService::play()
 	static unsigned long lastPlayTime = 0;
 
 	if (mSysStatus != SINGLE_PLAY_MODE && mSysStatus != LOOP_PLAY_MODE)
-	{
+	{
+
 		if (play_state != PLAY_STATE_IDLE)
 		{
 			ledAllOff();		
@@ -1208,7 +1217,8 @@ bool uArmService::play()
 	{
 	case PLAY_STATE_IDLE:
 		if (mSysStatus == SINGLE_PLAY_MODE || mSysStatus == LOOP_PLAY_MODE)
-		{
+		{
+
 			play_state = PLAY_STATE_START;
 			mRecordAddr = 0;
 			point_data_filter.reset();
@@ -1270,7 +1280,8 @@ bool uArmService::play()
 				play_state = PLAY_STATE_WAIT;
 			}
 			else
-			{
+			{
+
 				/*
 				point_data in;
 				point_data out;
@@ -1580,7 +1591,8 @@ bool uArmService::record()
 
 		for (int i = 0; i < 5; i++)
 		{
-			data[2 * i] = (angledata[i] & 0xff00 ) >> 8;
+			data[2 * i] = 
+(angledata[i] & 0xff00 ) >> 8;
 			data[2*i + 1] = angledata[i] & 0xff;
 		}
 

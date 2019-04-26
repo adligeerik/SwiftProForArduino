@@ -858,16 +858,16 @@ void servo_init() {
  *  - Print startup messages and diagnostics
  *  - Get EEPROM or default settings
  *  - Initialize managers for:
- *    â€?temperature
- *    â€?planner
- *    â€?watchdog
- *    â€?stepper
- *    â€?photo pin
- *    â€?servos
- *    â€?LCD controller
- *    â€?Digipot I2C
- *    â€?Z probe sled
- *    â€?status LEDs
+ *    ï¿½?temperature
+ *    ï¿½?planner
+ *    ï¿½?watchdog
+ *    ï¿½?stepper
+ *    ï¿½?photo pin
+ *    ï¿½?servos
+ *    ï¿½?LCD controller
+ *    ï¿½?Digipot I2C
+ *    ï¿½?Z probe sled
+ *    ï¿½?status LEDs
  */
 void setup() {
 
