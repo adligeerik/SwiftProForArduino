@@ -1780,7 +1780,7 @@ void gcode_get_destination_angle(uint8_t index)
 {
 	// get current angle
 	float current_angle[NUM_AXIS];
-
+MYSERIAL.print("testpos\n\r");
 	inverse_kinematics(current_position, current_angle);
 
 	LOOP_XYZ(i) {
@@ -1833,6 +1833,7 @@ char inverse_kinematics(const float in_cartesian[3], float angle[3]) {
 	float x = in_cartesian[0];
 	float y = in_cartesian[1];
 	float z = in_cartesian[2];
+  //float e = in_cartesian[3];
 	
 	float angleRot = 0;
 	float angleLeft = 0;
@@ -3007,6 +3008,11 @@ uint8_t gcode_get_destination() {
 
 	float angle[3];
 
+  //MYSERIAL.print("testinvkin\n\r");
+  if(test_destination[3]>E_MAX_POS || test_destination[3]<E_MAX_POS){
+    return E_OUT_OF_RANGE;
+  }
+
 	if (inverse_kinematics(test_destination,  angle) != 0)
 		return E_OUT_OF_RANGE;
 
@@ -3151,6 +3157,7 @@ float get_max_radius_from_height(float destination_z)
 
 uint8_t routine_valid()
 {
+  float ste =current_position[E_AXIS];
 	float stx = current_position[X_AXIS], sty = current_position[Y_AXIS];
 	float edx = destination[X_AXIS], edy = destination[Y_AXIS];
 
@@ -3212,6 +3219,8 @@ uint8_t routine_valid()
  * G0, G1: Coordinated movement of X Y Z E axes
  */
 inline uint8_t gcode_G0_G1() {
+
+
   if (IsRunning()) {
     uint8_t result = gcode_get_destination(); // For X Y Z E F
 

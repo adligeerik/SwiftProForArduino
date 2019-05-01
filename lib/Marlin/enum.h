@@ -77,10 +77,12 @@ enum EndstopEnum {
   X_MIN,
   Y_MIN,
   Z_MIN,
+  E_MIN,
   Z_MIN_PROBE,
   X_MAX,
   Y_MAX,
   Z_MAX,
+  E_MAX,
   Z2_MIN,
   Z2_MAX
 };

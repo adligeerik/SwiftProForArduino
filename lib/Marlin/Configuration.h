@@ -636,9 +636,11 @@
 #define X_MIN_POS -350
 #define Y_MIN_POS -350
 #define Z_MIN_POS -350
+#define E_MIN_POS 0
 #define X_MAX_POS 350
 #define Y_MAX_POS 350
 #define Z_MAX_POS 350
+#define E_MAX_POS 100
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================
@@ -781,22 +783,22 @@
 #define GEAR_RATIO	4.5
 #define DEFAULT_AXIS_STEPS_PER_UNIT   	{	DECELERATE_MULTIPLE*MIROC*GEAR_RATIO,\
 											DECELERATE_MULTIPLE*MIROC*GEAR_RATIO,\
-											DECELERATE_MULTIPLE*MIROC*GEAR_RATIO, 360/3.1415926/12*16/1.8}  
+											DECELERATE_MULTIPLE*MIROC*GEAR_RATIO, 80}//360/3.1415926/12*16/1.8}  
 
 
 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 2000}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 20000}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,20000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          25    // X, Y, Z and E acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  25    // E acceleration in mm/s^2 for retracts
+#define DEFAULT_RETRACT_ACCELERATION  100    // E acceleration in mm/s^2 for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   100  // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
 #define DEFAULT_XYJERK                1.0    // (mm/sec)
 #define DEFAULT_ZJERK                 1.0     // (mm/sec)
-#define DEFAULT_EJERK                 5.0    // (mm/sec)
+#define DEFAULT_EJERK                 0.5    // (mm/sec)
 
 
 //=============================================================================

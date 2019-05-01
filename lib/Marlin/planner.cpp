@@ -629,9 +629,9 @@ void Planner::check_axes_activity() {
   #endif
 
   block->steps[E_AXIS] = labs(de);
-  block->steps[E_AXIS] *= volumetric_multiplier[extruder];
-  block->steps[E_AXIS] *= extruder_multiplier[extruder];
-  block->steps[E_AXIS] /= 100;
+  //block->steps[E_AXIS] *= volumetric_multiplier[extruder];
+  //block->steps[E_AXIS] *= extruder_multiplier[extruder];
+  //block->steps[E_AXIS] /= 100;
   block->step_event_count = max(block->steps[X_AXIS], max(block->steps[Y_AXIS], max(block->steps[Z_AXIS], block->steps[E_AXIS])));
 
   // Bail if this is a zero-length block

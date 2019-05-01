@@ -67,6 +67,7 @@
   #define X_MAX_LENGTH (X_MAX_POS - (X_MIN_POS))
   #define Y_MAX_LENGTH (Y_MAX_POS - (Y_MIN_POS))
   #define Z_MAX_LENGTH (Z_MAX_POS - (Z_MIN_POS))
+  #define E_MAX_LENGTH (E_MAX_POS - (E_MIN_POS))
 
   /**
    * CoreXY and CoreXZ
@@ -430,6 +431,8 @@
   #define HAS_Y_MAX (PIN_EXISTS(Y_MAX))
   #define HAS_Z_MIN (PIN_EXISTS(Z_MIN))
   #define HAS_Z_MAX (PIN_EXISTS(Z_MAX))
+  #define HAS_E_MIN (PIN_EXISTS(E_MIN))
+  #define HAS_E_MAX (PIN_EXISTS(E_MAX))
   #define HAS_Z2_MIN (PIN_EXISTS(Z2_MIN))
   #define HAS_Z2_MAX (PIN_EXISTS(Z2_MAX))
   #define HAS_Z_MIN_PROBE_PIN (PIN_EXISTS(Z_MIN_PROBE))

@@ -51,6 +51,10 @@
   //#define Z_MIN_PROBE_PIN  32
 #endif
 
+#define E_MAX_PIN          33
+#define E_MIN_PIN          35
+
+
 #define X_STEP_PIN         54	//S
 #define X_DIR_PIN          55	//S
 #define X_ENABLE_PIN       38	//S
@@ -70,6 +74,7 @@
 #define E1_STEP_PIN        36
 #define E1_DIR_PIN         34
 #define E1_ENABLE_PIN      30
+
 
 #define SDSS               53	// sd card cs pin
 #define LED_PIN            2	// R 13

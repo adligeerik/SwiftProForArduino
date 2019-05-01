@@ -94,6 +94,13 @@ void Endstops::init() {
     #endif
   #endif
 
+  #if HAS_E_MIN
+    SET_INPUT(E_MIN_PIN);
+    #if ENABLED(ENDSTOPPULLUP_EMIN)
+      WRITE(E_MIN_PIN,HIGH);
+    #endif
+  #endif
+
   #if HAS_X_MAX
     SET_INPUT(X_MAX_PIN);
     #if ENABLED(ENDSTOPPULLUP_XMAX)
@@ -126,6 +133,13 @@ void Endstops::init() {
     SET_INPUT(Z_MIN_PROBE_PIN);
     #if ENABLED(ENDSTOPPULLUP_ZMIN_PROBE)
       WRITE(Z_MIN_PROBE_PIN,HIGH);
+    #endif
+  #endif
+
+  #if HAS_E_MAX
+    SET_INPUT(E_MAX_PIN);
+    #if ENABLED(ENDSTOPPULLUP_EMAX)
+      WRITE(E_MAX_PIN,HIGH);
     #endif
   #endif
 
