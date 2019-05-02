@@ -94,12 +94,7 @@ void Endstops::init() {
     #endif
   #endif
 
-  #if HAS_E_MIN
-    SET_INPUT(E_MIN_PIN);
-    #if ENABLED(ENDSTOPPULLUP_EMIN)
-      WRITE(E_MIN_PIN,HIGH);
-    #endif
-  #endif
+
 
   #if HAS_X_MAX
     SET_INPUT(X_MAX_PIN);
@@ -136,10 +131,37 @@ void Endstops::init() {
     #endif
   #endif
 
-  #if HAS_E_MAX
-    SET_INPUT(E_MAX_PIN);
+//  #if HAS_E_MIN
+//    SET_INPUT(E_MIN_PIN);
+//    #if ENABLED(ENDSTOPPULLUP_EMIN)
+//      WRITE(E_MIN_PIN,HIGH);
+//    #endif
+//  #endif
+//
+//
+//  #if HAS_E_MAX
+//    SET_INPUT(E_MAX_PIN);
+//    #if ENABLED(ENDSTOPPULLUP_EMAX)
+//      WRITE(E_MAX_PIN,HIGH);
+//    #endif
+//  #endif
+
+
+  #ifdef HAS_E_MIN
+    #if ENABLED(ENDSTOPPULLUP_EMIN)
+      SET_INPUT(E_MIN_PIN);
+    #else
+//      SET_INPUT(E_MIN_PIN);
+      SET_INPUT(E_MIN_PIN);
+    #endif
+  #endif
+  
+  #ifdef HAS_E_MAX
     #if ENABLED(ENDSTOPPULLUP_EMAX)
-      WRITE(E_MAX_PIN,HIGH);
+      SET_INPUT(E_MAX_PIN);
+    #else
+//      SET_INPUT(E_MAX_PIN);
+      SET_INPUT(E_MAX_PIN);
     #endif
   #endif
 
@@ -246,10 +268,15 @@ void Endstops::M119() {
 
 // Check endstops - Called from ISR!
 void Endstops::update() {
+//MYSERIAL.print("endstop check\n\r");
 
-	#ifdef UARM_SWIFT
-		return;
-	#endif
+
+
+
+
+
+
+
 
   #define _ENDSTOP_PIN(AXIS, MINMAX) AXIS ##_## MINMAX ##_PIN
   #define _ENDSTOP_INVERTING(AXIS, MINMAX) AXIS ##_## MINMAX ##_ENDSTOP_INVERTING
@@ -266,8 +293,29 @@ void Endstops::update() {
       if (TEST_ENDSTOP(_ENDSTOP(AXIS, MINMAX)) && stepper.current_block->steps[_AXIS(AXIS)] > 0) { \
         _ENDSTOP_HIT(AXIS); \
         stepper.endstop_triggered(_AXIS(AXIS)); \
+        MYSERIAL.print("after check\n\r");\
       } \
     } while(0)
+
+
+    if (stepper.current_block->steps[E_AXIS] > 0) {
+      if (stepper.motor_direction(E_AXIS)) { // -direction
+        #ifdef HAS_E_MIN      
+            UPDATE_ENDSTOP(E, MIN);
+        #endif
+      }
+      else { // +direction
+        #ifdef HAS_E_MAX
+            UPDATE_ENDSTOP(E, MAX);
+        #endif
+      }
+    }
+
+  //MYSERIAL.print("after check\n\r");
+  #ifdef UARM_SWIFT
+		return;
+	#endif
+
 
   #if ENABLED(COREXY) || ENABLED(COREXZ)
     // Head direction in -X axis for CoreXY and CoreXZ bots.

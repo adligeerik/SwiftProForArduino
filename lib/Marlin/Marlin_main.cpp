@@ -1780,7 +1780,7 @@ void gcode_get_destination_angle(uint8_t index)
 {
 	// get current angle
 	float current_angle[NUM_AXIS];
-MYSERIAL.print("testpos\n\r");
+  //MYSERIAL.print("testpos\n\r");
 	inverse_kinematics(current_position, current_angle);
 
 	LOOP_XYZ(i) {
@@ -3008,8 +3008,7 @@ uint8_t gcode_get_destination() {
 
 	float angle[3];
 
-  //MYSERIAL.print("testinvkin\n\r");
-  if(test_destination[3]>E_MAX_POS || test_destination[3]<E_MAX_POS){
+  if(test_destination[3]>E_MAX_POS || test_destination[3]<E_MIN_POS){
     return E_OUT_OF_RANGE;
   }
 

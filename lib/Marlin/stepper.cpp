@@ -389,7 +389,7 @@ void Stepper::isr() {
         || endstops.z_probe_enabled
       #endif
     ) endstops.update();
-
+    
     // Take multiple steps per interrupt (For high speed moves)
     for (int8_t i = 0; i < step_loops; i++) {
       #if !defined(USBCON) && !defined(UARM_SWIFT)

@@ -442,6 +442,10 @@
   //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
+#define ENDSTOPPULLUP_EMIN
+#define ENDSTOPPULLUP_EMAX
+
+
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
@@ -450,6 +454,9 @@
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+
+#define E_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#define E_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -787,9 +794,9 @@
 
 
 
-//#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 20000}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,20000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker 1000000
+#define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 2000}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          25    // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  100    // E acceleration in mm/s^2 for retracts
