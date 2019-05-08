@@ -442,8 +442,8 @@
   //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
-#define ENDSTOPPULLUP_EMIN
-#define ENDSTOPPULLUP_EMAX
+//#define ENDSTOPPULLUP_EMIN
+//#define ENDSTOPPULLUP_EMAX
 
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
@@ -647,7 +647,7 @@
 #define X_MAX_POS 350
 #define Y_MAX_POS 350
 #define Z_MAX_POS 350
-#define E_MAX_POS 100
+#define E_MAX_POS 2000
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================

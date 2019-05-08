@@ -131,39 +131,39 @@ void Endstops::init() {
     #endif
   #endif
 
-//  #if HAS_E_MIN
-//    SET_INPUT(E_MIN_PIN);
-//    #if ENABLED(ENDSTOPPULLUP_EMIN)
-//      WRITE(E_MIN_PIN,HIGH);
-//    #endif
-//  #endif
-//
-//
-//  #if HAS_E_MAX
-//    SET_INPUT(E_MAX_PIN);
-//    #if ENABLED(ENDSTOPPULLUP_EMAX)
-//      WRITE(E_MAX_PIN,HIGH);
-//    #endif
-//  #endif
-
-
-  #ifdef HAS_E_MIN
+  #if HAS_E_MIN
+    SET_INPUT(E_MIN_PIN);
     #if ENABLED(ENDSTOPPULLUP_EMIN)
-      SET_INPUT(E_MIN_PIN);
-    #else
-//      SET_INPUT(E_MIN_PIN);
-      SET_INPUT(E_MIN_PIN);
+      WRITE(E_MIN_PIN,HIGH);
     #endif
   #endif
-  
-  #ifdef HAS_E_MAX
+
+
+  #if HAS_E_MAX
+    SET_INPUT(E_MAX_PIN);
     #if ENABLED(ENDSTOPPULLUP_EMAX)
-      SET_INPUT(E_MAX_PIN);
-    #else
-//      SET_INPUT(E_MAX_PIN);
-      SET_INPUT(E_MAX_PIN);
+      WRITE(E_MAX_PIN,HIGH);
     #endif
   #endif
+
+
+//  #ifdef HAS_E_MIN
+//    #if ENABLED(ENDSTOPPULLUP_EMIN)
+//      SET_INPUT(E_MIN_PIN);
+//    #else
+////      SET_INPUT(E_MIN_PIN);
+//      SET_INPUT(E_MIN_PIN);
+//    #endif
+//  #endif
+//  
+//  #ifdef HAS_E_MAX
+//    #if ENABLED(ENDSTOPPULLUP_EMAX)
+//      SET_INPUT(E_MAX_PIN);
+//    #else
+////      SET_INPUT(E_MAX_PIN);
+//      SET_INPUT(E_MAX_PIN);
+//    #endif
+//  #endif
 
 } // Endstops::init
 
@@ -189,6 +189,7 @@ void Endstops::report_state() {
     _ENDSTOP_HIT_TEST(X, 'X');
     _ENDSTOP_HIT_TEST(Y, 'Y');
     _ENDSTOP_HIT_TEST(Z, 'Z');
+    _ENDSTOP_HIT_TEST(E, 'E');
 
     #if ENABLED(Z_MIN_PROBE_ENDSTOP)
       #define P_AXIS Z_AXIS
@@ -273,7 +274,15 @@ void Endstops::update() {
 
 
 
+// #define TEST_ENDSTOP(ENDSTOP) (TEST(current_endstop_bits & old_endstop_bits, ENDSTOP))
 
+// Macros for bit masks
+// #define TEST(n,b) (((n)&_BV(b))!=0)
+// #define SBI(n,b) (n |= _BV(b))
+// #define CBI(n,b) (n &= ~_BV(b))
+// #define SET_BIT(n,b,value) (n) ^= ((-value)^(n)) & (_BV(b))
+
+//         //if (TEST_ENDSTOP(_ENDSTOP(AXIS, MINMAX)) && stepper.current_block->steps[_AXIS(AXIS)] > 0) {       if (READ(_ENDSTOP_PIN(AXIS, MINMAX))){ \
 
 
 
@@ -290,13 +299,17 @@ void Endstops::update() {
 
   #define UPDATE_ENDSTOP(AXIS,MINMAX) do { \
       UPDATE_ENDSTOP_BIT(AXIS, MINMAX); \
-      if (TEST_ENDSTOP(_ENDSTOP(AXIS, MINMAX)) && stepper.current_block->steps[_AXIS(AXIS)] > 0) { \
+      MYSERIAL.print(_BV(_ENDSTOP(Z, MIN))); \
+      MYSERIAL.print("\n"); \
+      if (READ(_ENDSTOP_PIN(AXIS, MINMAX))){ \
+      MYSERIAL.print("after check\n\r");\
         _ENDSTOP_HIT(AXIS); \
         stepper.endstop_triggered(_AXIS(AXIS)); \
-        MYSERIAL.print("after check\n\r");\
+        stepper.quick_stop(); \
+        MYSERIAL.print("triggered"); \
       } \
     } while(0)
-
+  
 
     if (stepper.current_block->steps[E_AXIS] > 0) {
       if (stepper.motor_direction(E_AXIS)) { // -direction
@@ -311,7 +324,9 @@ void Endstops::update() {
       }
     }
 
+  old_endstop_bits = current_endstop_bits;
   //MYSERIAL.print("after check\n\r");
+  MYSERIAL.print(old_endstop_bits);
   #ifdef UARM_SWIFT
 		return;
 	#endif

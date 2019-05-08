@@ -252,6 +252,7 @@ class Stepper {
 
     static inline void kill_current_block() {
       step_events_completed = current_block->step_event_count;
+      MYSERIAL.print("Kill\n");
     }
 
     //
