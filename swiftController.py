@@ -7,7 +7,7 @@ class Swift:
     def __init__(self):
         self.ser = serial.Serial('/dev/ttyACM0')
         self.ser.baudrate = 115200
-        self.speed = ' F1000'
+        self.speed = ' F10000000'
         self.xCoordinate = 0.0
         self.yCoordinate = 0.0
         self.zCoordinate = 0.0
@@ -26,11 +26,11 @@ class Swift:
     def speed(self, newspeed):
         self.speed = newspeed
 
-    def moveXYZRel(self, x, y, z, speed):
+    def moveXYZRel(self, x, y, z, e, speed):
         if speed == '':
             speed = self.speed
 
-        command = 'G2204 X'+ str(x)+ ' Y'+ str(y)+ ' Z'+ str(z) + speed +'\r\n'
+        command = 'G2204 X'+ str(x)+ ' Y'+ str(y)+ ' Z'+ str(z) +' E'+ str(e) + speed +'\r\n'
         self.sendCommand(command)
 
     def moveZRel(self, dist):
@@ -45,6 +45,10 @@ class Swift:
         command = 'G2204 Y'+ str(dist) + self.speed +'\r\n'
         self.sendCommand(command)
 
+    def moveERel(self, dist):
+        command = 'G2204 E'+ str(dist) + self.speed +'\r\n'
+        self.sendCommand(command)
+
     def detach(self):
         command = 'M2019\r\n'
         self.sendCommand(command)
@@ -53,9 +57,41 @@ class Swift:
         command = 'M17\r\n'
         self.sendCommand(command)
 
-    def moveToPos(self, X, Y, Z, speed):
-        command = 'G0 X'+ str(X)+ ' Y'+ str(Y) +' Z' + str(Z)+ speed+'\r\n'
+    def moveToPos(self, X, Y, Z, E, speed = ""):
+        if speed == '':
+            speed = self.speed
+
+        command = 'G0 X'+ str(X)+ ' Y'+ str(Y) +' Z' + str(Z)+' E' + str(E)+ speed+'\r\n'
         self.sendCommand(command)
+
+    def moveXToPos(self, coordinate, speed = ""):
+        if speed == '':
+            speed = self.speed
+
+        command = 'G0 X'+ str(coordinate) + speed+'\r\n'
+        self.sendCommand(command)
+
+    def moveYToPos(self, coordinate, speed = ""):
+        if speed == '':
+            speed = self.speed
+
+        command = 'G0 Y'+ str(coordinate) + speed+'\r\n'
+        self.sendCommand(command)
+
+    def moveZToPos(self, coordinate, speed = ""):
+        if speed == '':
+            speed = self.speed
+
+        command = 'G0 Z'+ str(coordinate) + speed+'\r\n'
+        self.sendCommand(command)
+
+    def moveEToPos(self, coordinate, speed = ""):
+        if speed == '':
+            speed = self.speed
+
+        command = 'G0 E'+ str(coordinate) + speed+'\r\n'
+        self.sendCommand(command)
+
 
     def moveSquare(self, dist):
         self.ser.write('G2204 X'+ str(dist) + self.speed +'\r\n')
@@ -157,9 +193,9 @@ class Swift:
         if self.echo == True:
             print(command)
 
-        while not self.isExecuted:
-            a = 0
-        self.isExecuted = False
+        #while not self.isExecuted:
+        #    a = 0
+        #self.isExecuted = False
 
     def servoAngle(self,angle):
         command = 'G2202 N3 V' + str(angle) + '\r\n'
