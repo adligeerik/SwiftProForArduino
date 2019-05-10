@@ -1,5 +1,5 @@
 # Linear Movement for uArm
-This repo is forked from ufactory and has been modified so that the arm will move linear on aluminum tracks. The firmware has been changed to use the extruder motor as the 4th axis.
+This repo is forked from ufactory and has been modified so that the arm will move linear on aluminum tracks. The firmware has been changed to use the extruder motor as the 4th axis. Use the ```develop``` branch.
 
 ## Hardware used
 
