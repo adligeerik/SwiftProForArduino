@@ -1,12 +1,13 @@
 import serial
 import threading
 import logging
+import socket
 
 class Swift:
 
     def __init__(self):
-        self.ser = serial.Serial('/dev/ttyACM0')
-        self.ser.baudrate = 115200
+        #self.ser = serial.Serial('/dev/ttyACM0')
+        #self.ser.baudrate = 115200
         self.speed = ' F10000000'
         self.xCoordinate = 0.0
         self.yCoordinate = 0.0
@@ -16,6 +17,12 @@ class Swift:
         self.isExecuted = True
         self.echo = False
         self.verbose = 0 # 0 nothing , 1 all
+
+        self.ip = "192.168.10.127"
+        self.port = 8002
+        self.buf = 1024
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((self.ip,self.port))
 
     def setEcho(self, echo):
         self.echo = echo
@@ -94,10 +101,10 @@ class Swift:
 
 
     def moveSquare(self, dist):
-        self.ser.write('G2204 X'+ str(dist) + self.speed +'\r\n')
-        self.ser.write('G2204 Y'+ str(dist) + self.speed +'\r\n')
-        self.ser.write('G2204 X-'+ str(dist) + self.speed +'\r\n')
-        self.ser.write('G2204 Y-'+ str(dist) + self.speed +'\r\n')
+        self.sendCommand('G2204 X'+ str(dist) + self.speed +'\r\n')
+        self.sendCommand('G2204 Y'+ str(dist) + self.speed +'\r\n')
+        self.sendCommand('G2204 X-'+ str(dist) + self.speed +'\r\n')
+        self.sendCommand('G2204 Y-'+ str(dist) + self.speed +'\r\n')
 
     def stopPos(self):
         command = 'M2120 V'+str(0)+'\r\n'
@@ -106,15 +113,15 @@ class Swift:
     def startPos(self, interval):
         command = 'M2120 V'+str(interval)+'\r\n'
         self.sendCommand(command)
-        self.thread = threading.Thread(target = self.readFromPort, args=(self.ser,))
+        self.thread = threading.Thread(target = self.readFromPort, args=(self.socket,))
         self.thread.daemon = True
         self.thread.start()
         self.enableComFin()
 
-    def readFromPort(self, ser):
+    def readFromPort(self, socket):
         
         while 1:
-            line = ser.readline()
+            line = socket.recv(self.buf)
             logging.info('Uarm response: '+ line)
             if self.verbose:
                 print(line)
@@ -162,8 +169,8 @@ class Swift:
     def comCheck(self):
         return self.isExecuted
 
-    def getSer(self):
-        return self.ser
+    #def getSer(self):
+    #    return self.ser
 
     def checkValidPos(self):
         return self.validPos
@@ -182,13 +189,14 @@ class Swift:
 
     def checkAngle(self):
         command = 'P2206 N0\r\n'
-        self.ser.write(command)
+        self.sendCommand(command)
 
     def getPos(self):
         return self.xCoordinate, self.yCoordinate, self.zCoordinate
 
     def sendCommand(self,command):
-        self.ser.write(command + 'P2220\r\n')
+        #self.ser.write(command + 'P2220\r\n')
+        self.socket.send(command)
         logging.info('Command: '+command)
         if self.echo == True:
             print(command)
