@@ -647,7 +647,7 @@
 #define X_MAX_POS 350
 #define Y_MAX_POS 350
 #define Z_MAX_POS 350
-#define E_MAX_POS 2000
+#define E_MAX_POS 3000
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================
@@ -798,14 +798,14 @@
 #define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 2000}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          25    // X, Y, Z and E acceleration in mm/s^2 for printing moves
+#define DEFAULT_ACCELERATION          100   // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  100    // E acceleration in mm/s^2 for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   100  // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION   10  // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
 #define DEFAULT_XYJERK                1.0    // (mm/sec)
-#define DEFAULT_ZJERK                 1.0     // (mm/sec)
-#define DEFAULT_EJERK                 0.5    // (mm/sec)
+#define DEFAULT_ZJERK                 1.0    // (mm/sec)
+#define DEFAULT_EJERK                 0.001    // (mm/sec)
 
 
 //=============================================================================

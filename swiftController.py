@@ -3,11 +3,12 @@ import threading
 import logging
 import socket
 
+
 class Swift:
 
     def __init__(self):
         #self.ser = serial.Serial('/dev/ttyACM0')
-        #self.ser.baudrate = 115200
+        #elf.ser.baudrate = 115200
         self.speed = ' F10000000'
         self.xCoordinate = 0.0
         self.yCoordinate = 0.0
@@ -113,14 +114,20 @@ class Swift:
     def startPos(self, interval):
         command = 'M2120 V'+str(interval)+'\r\n'
         self.sendCommand(command)
+        #self.thread = threading.Thread(target = self.readFromPort, args=(self.ser,))
         self.thread = threading.Thread(target = self.readFromPort, args=(self.socket,))
         self.thread.daemon = True
         self.thread.start()
         self.enableComFin()
 
+    def kill(self):
+        command = 'M112'
+        self.sendCommand(command)
+
     def readFromPort(self, socket):
         
         while 1:
+            #line = ser.readline()
             line = socket.recv(self.buf)
             logging.info('Uarm response: '+ line)
             if self.verbose:
