@@ -11,6 +11,7 @@ This repo is forked from ufactory and has been modified so that the arm will mov
 * LiPo battery
 * DCDC converter
 * Opto endstops
+* Bearings (4pc 19mmØ, 3pc 22mmØ)
 
 ### Raspberry Pi
 The Paspberry Pi runs [DietPi](https://dietpi.com). The RPi recives messages on port 8002 and forwards them to a USB port with socat. The following command is exacuted on startup on the RPi:
