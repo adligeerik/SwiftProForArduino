@@ -8,7 +8,7 @@ class Swift:
 
     def __init__(self):
         #self.ser = serial.Serial('/dev/ttyACM0')
-        #elf.ser.baudrate = 115200
+        #self.ser.baudrate = 115200
         self.speed = ' F10000000'
         self.xCoordinate = 0.0
         self.yCoordinate = 0.0
@@ -122,7 +122,7 @@ class Swift:
 
     def kill(self):
         command = 'M112'
-        self.sendCommand(command)
+        self.sendCommand(command) 
 
     def readFromPort(self, socket):
         

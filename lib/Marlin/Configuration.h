@@ -795,8 +795,8 @@
 
 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker 1000000
-#define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 2000}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_FEEDRATE          {2000, 2000, 2000, 200}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,2000,20000000000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          100   // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  100    // E acceleration in mm/s^2 for retracts
